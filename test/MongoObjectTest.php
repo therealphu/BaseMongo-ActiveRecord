@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/bootstrap.php';
 
-use BaseMongo\MongoConnection;
+use BaseMongo\BaseMongoConnection;
 use BaseMongo\BaseMongoObject;
 use BaseMongo\BaseMongoQuery;
 use Test\Model\Test;
@@ -12,7 +12,7 @@ class MongoObjectTest extends PHPUnit_Framework_TestCase
 {
   public function setUp()
   {
-    MongoConnection::setConnection(array(
+    BaseMongoConnection::initialize(array(
       'database'  => 'Test',
       'host'      => 'localhost'
     ));

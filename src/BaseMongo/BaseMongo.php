@@ -28,7 +28,7 @@ abstract class BaseMongo
   */
   public function getConnection()
   {
-    $con = MongoConnection::getConnection();
+    $con = BaseMongoConnection::getConnection();
     
     if (null === $con)
     {

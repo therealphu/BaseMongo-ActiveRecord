@@ -46,12 +46,12 @@ abstract class BaseMongoObject extends BaseMongo
     }
   }
   
-  public function setId(\MongoId $id)
+  public function setDocumentId(\MongoId $id)
   {
     $this->id = $id;
   }
   
-  public function getId()
+  public function getDocumentId()
   {
     return $this->id;
   }
@@ -150,9 +150,9 @@ abstract class BaseMongoObject extends BaseMongo
   
   public function save()
   {
-    if (null !== $this->getId())
+    if (null !== $this->getDocumentId())
     {
-      $this->field['_id'] = $this->getId();
+      $this->field['_id'] = $this->getDocumentId();
     }
     
     if (!$this->isValid())
@@ -166,7 +166,7 @@ abstract class BaseMongoObject extends BaseMongo
       {
         $this->getCollection()->insert($this->field);
         
-        $this->setId($this->field['_id']);
+        $this->setDocumentId($this->field['_id']);
         
         unset($this->field['_id']);
       }
@@ -209,6 +209,7 @@ abstract class BaseMongoObject extends BaseMongo
   {
     $prefix   = strtolower(substr($name, 0, 3));
     $field    = substr($name, 3);
+    $key      = preg_replace('/[^a-zA-Z0-9_]/', '', $field);
     $key      = $this->underscore($field);
     
     if ($prefix == 'get')

@@ -76,7 +76,7 @@ use Model\UserQuery;
 
 // setup connection
 // username and password are optional parameters
-MongoConnection::setConnection(array(
+BaseMongoConnection::setConnection(array(
   'database'  => 'Test',
   'host'      => 'localhost',
   'username'  => null,

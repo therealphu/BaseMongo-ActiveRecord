@@ -13,6 +13,7 @@ namespace BaseMongo;
 
 use BaseMongo\BaseMongo;
 use BaseMongo\BaseMongoObject;
+use BaseMongo\Adaptor\PaginationAdaptor;
 
 abstract class BaseMongoQuery extends BaseMongo
 {
@@ -83,6 +84,21 @@ abstract class BaseMongoQuery extends BaseMongo
     $document         = current($documents);
     
     return ($document ? $document : null);
+  }
+  
+  public function remove($query, $options = array())
+  {
+    return $this->getCollection()->remove($query, $options);
+  }
+  
+  public function paginate($query = array(), $page = 1, $itemCountPerPage = 10, $options = array())
+  {
+      $paginator = new \Zend_Paginator(new PaginationAdaptor($this, $query, $options));
+      
+      $paginator->setCurrentPageNumber($page);
+      $paginator->setItemCountPerPage($itemCountPerPage);
+      
+      return $paginator;
   }
   
   public function count($query = array())

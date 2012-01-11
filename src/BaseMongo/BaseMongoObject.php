@@ -222,6 +222,9 @@ abstract class BaseMongoObject extends BaseMongo
       
       $this->isModified = true;
     }
+    else if ($prefix == 'has') {
+        return isset($this->field[$key]);
+    }
     else
     {
       throw new \Exception('Call to undefined method: ' . $name); 

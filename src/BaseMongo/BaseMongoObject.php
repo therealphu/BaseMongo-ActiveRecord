@@ -223,7 +223,7 @@ abstract class BaseMongoObject extends BaseMongo
       $this->isModified = true;
     }
     else if ($prefix == 'has') {
-        return isset($this->field[$key]);
+        return (isset($this->field[$key]) && $this->field[$key] != null);
     }
     else
     {
